@@ -1,6 +1,6 @@
 {
   "name": "language-weex",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Syntax highlighting for weex files",
   "repository": "https://github.com/coffeedeveloper/atom-weex",
   "license": "MIT",
