@@ -1,7 +1,7 @@
 fileTypes: [
-  "vue"
+  "we"
 ]
-name: "Vue Component"
+name: "Weex File"
 patterns: [
   {
     name: "meta.tag.any.html"
