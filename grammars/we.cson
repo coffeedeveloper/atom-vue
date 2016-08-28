@@ -342,6 +342,35 @@ patterns: [
     ]
   }
   {
+    name: "text.slm.embedded.html"
+    begin: "(?:^\\s+)?(<)((?i:template))\\b(?=[^>]*lang=[\"']slm[\"'])"
+    end: "(</)((?i:template))(>)(?:\\s*\\n)?"
+    captures:
+      "1":
+        name: "punctuation.definition.tag.html"
+      "2":
+        name: "entity.name.tag.style.html"
+      "3":
+        name: "punctuation.definition.tag.html"
+    patterns: [
+      {
+        include: "#tag-stuff"
+      }
+      {
+        begin: "(>)"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.tag.html"
+        end: "(?=</(?i:template))"
+        patterns: [
+          {
+            include: "text.slm"
+          }
+        ]
+      }
+    ]
+  }
+  {
     name: "source.coffee.embedded.html"
     begin: "(?:^\\s+)?(<)((?i:script))\\b(?=[^>]*lang=[\"']coffee[\"'])"
     beginCaptures:
@@ -368,6 +397,38 @@ patterns: [
         patterns: [
           {
             include: "source.coffee"
+          }
+        ]
+      }
+    ]
+  }
+  {
+    name: "source.livescript.embedded.html"
+    begin: "(?:^\\s+)?(<)((?i:script))\\b(?=[^>]*lang=[\"']livescript[\"'])"
+    beginCaptures:
+      "1":
+        name: "punctuation.definition.tag.html"
+      "2":
+        name: "entity.name.tag.script.html"
+    end: "(?<=</(script|SCRIPT))(>)(?:\\s*\\n)?"
+    endCaptures:
+      "2":
+        name: "punctuation.definition.tag.html"
+    patterns: [
+      {
+        include: "#tag-stuff"
+      }
+      {
+        begin: "(?<!</(?:script|SCRIPT))(>)"
+        end: "(</)((?i:script))"
+        captures:
+          "1":
+            name: "punctuation.definition.tag.html"
+          "2":
+            name: "entity.name.tag.script.html"
+        patterns: [
+          {
+            include: "source.livescript"
           }
         ]
       }
@@ -526,7 +587,7 @@ repository:
     ]
   "vue-directive":
     name: "meta.directive.vue"
-    begin: "(?:\\b(v-)|(:|@))([a-zA-Z\-\:\.]+)\s*(=)"
+    begin: "(?:\\b(v-)|(:|@))([a-zA-Z\\-\\:\\.]+)\\s*(=)"
     end: "(?<='|\")"
     captures:
       "1":
